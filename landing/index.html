@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oculus AI — Stop Optimizing for Clicks. Start Optimizing for LLMs.</title>
+    <meta name="description"
+        content="Oculus measures the probability that AI assistants recommend your company — and gives you the playbook to raise it. The Stripe of AI visibility.">
+    <meta name="keywords"
+        content="AI visibility, GEO, generative engine optimization, LLM recommendability, ChatGPT, Claude, Perplexity, Gemini">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔮</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0A0A0B;
+            --bg-secondary: #121214;
+            --text-primary: #EDEDED;
+            --text-secondary: #A1A1AA;
+            --text-muted: #52525B;
+            --accent-primary: #8B5CF6;
+            --accent-hover: #7C3AED;
+            --accent-glow: rgba(139, 92, 246, 0.5);
+            --border-color: #27272A;
+            --gradient-1: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+            --gradient-text: linear-gradient(90deg, #A78BFA, #60A5FA);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Utilities ──────────────────────────────────────────── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+
+        /* ── Navbar ─────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 12px 0;
+            background: rgba(10, 10, 11, 0.8);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a:not(.btn) {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:not(.btn):hover {
+            color: white;
+        }
+
+        /* ── Hero ────────────────────────────────────────────────── */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: #A78BFA;
+            margin-bottom: 32px;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #A78BFA;
+            border-radius: 50%;
+            box-shadow: 0 0 0 rgba(167, 139, 250, 0.4);
+            animation: pulse-animation 2s infinite;
+        }
+
+        @keyframes pulse-animation {
+            0% {
+                box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(167, 139, 250, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(167, 139, 250, 0);
+            }
+        }
+
+        /* Waitlist Form */
+        .waitlist-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto 16px;
+        }
+
+        .waitlist-form input {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .waitlist-count {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 64px;
+        }
+
+        .waitlist-success {
+            display: none;
+            background: rgba(16, 185, 129, 0.1);
+            color: #34D399;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Code Preview */
+        .code-preview {
+            background: #0F0F11;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: left;
+            padding: 24px;
+            max-width: 680px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 16px;
+        }
+
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red {
+            background: #EF4444;
+        }
+
+        .code-dot.yellow {
+            background: #F59E0B;
+        }
+
+        .code-dot.green {
+            background: #10B981;
+        }
+
+        .code-title {
+            margin-left: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .code-body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: #A1A1AA;
+            line-height: 1.7;
+        }
+
+        .keyword {
+            color: #C084FC;
+        }
+
+        .string {
+            color: #86EFAC;
+        }
+
+        .function {
+            color: #60A5FA;
+        }
+
+        .property {
+            color: #93C5FD;
+        }
+
+        .number {
+            color: #FCA5A5;
+        }
+
+        .comment {
+            color: #52525B;
+        }
+
+        /* ── Stats Bar ───────────────────────────────────────────── */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 100px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Feature Grid ────────────────────────────────────────── */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 80px;
+        }
+
+        .section-label {
+            color: #A78BFA;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 16px;
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #3F3F46;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .feature-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .tag-api {
+            background: rgba(139, 92, 246, 0.1);
+            color: #A78BFA;
+        }
+
+        .tag-moat {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60A5FA;
+        }
+
+        .tag-new {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34D399;
+        }
+
+        /* ── Comparison Table ────────────────────────────────────── */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .comparison-table td:first-child,
+        .comparison-table th:first-child {
+            text-align: left;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .highlight-col {
+            background: rgba(139, 92, 246, 0.05);
+            border-left: 1px solid var(--accent-glow);
+            border-right: 1px solid var(--accent-glow);
+            position: relative;
+        }
+
+        .highlight-col:first-child {
+            border-top: 1px solid var(--accent-glow);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .highlight-col:last-child {
+            border-bottom: 1px solid var(--accent-glow);
+            border-radius: 0 0 16px 16px;
+        }
+
+        .check {
+            color: #10B981;
+            font-weight: 700;
+        }
+
+        .cross {
+            color: #52525B;
+        }
+
+        /* ── Pricing ────────────────────────────────────────────── */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .price-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .price-card.featured {
+            border-color: var(--accent-primary);
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .price-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .price-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .currency {
+            font-size: 1.5rem;
+            vertical-align: top;
+            margin-right: 4px;
+        }
+
+        .period {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .price-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .price-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* ── CTA ────────────────────────────────────────────────── */
+        .cta-section {
+            text-align: center;
+            padding: 120px 0;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+        }
+
+        /* ── Footer ─────────────────────────────────────────────── */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 60px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ── Background Effects ─────────────────────────────────── */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bg-ambient {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.1), transparent 50%);
+            z-index: -2;
+        }
+
+        /* ── Responsive ─────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-bar {
+                flex-wrap: wrap;
+                gap: 40px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 120px 0 60px;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .stats-bar {
+                gap: 30px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* ── Animations ──────────────────────────────────────── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            transition-delay: 0.5s;
+        }
+
+        .stagger-6 {
+            transition-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-ambient"></div>
+    <div class="grid-bg"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">🔮</div>
+                Oculus AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#compare">Compare</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#sdk">SDK</a></li>
+                <li><a href="#waitlist" class="btn btn-primary btn-sm">Join Waitlist</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge fade-up">
+                <span class="pulse"></span>
+                Now in Early Access — 47 spots remaining
+            </div>
+            <h1 class="fade-up stagger-1">
+                Stop optimizing for clicks.<br>
+                <span class="gradient-text">Start optimizing for LLMs.</span>
+            </h1>
+            <p class="fade-up stagger-2">
+                Oculus measures the probability that AI assistants will recommend your company
+                — and gives you the playbook to raise it. With confidence intervals.
+            </p>
+
+            <form class="waitlist-form fade-up stagger-3" id="waitlistForm">
+                <input type="email" placeholder="your@email.com" id="emailInput" required>
+                <button type="submit" class="btn btn-primary">Get Early Access</button>
+            </form>
+            <p class="waitlist-count fade-up stagger-3">
+                <strong id="waitlistCount">153</strong> developers already on the waitlist
+            </p>
+            <div class="waitlist-success" id="waitlistSuccess">
+                🎉 You're in! Check your email for early access instructions.
+            </div>
+
+            <!-- Code Preview -->
+            <div class="code-preview fade-up stagger-4">
+                <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                    <span class="code-title">deploy.yml — GitHub Actions</span>
+                </div>
+                <div class="code-body">
+                    <span class="comment"># Check AI recommendability on every deploy</span><br>
+                    <span class="keyword">- name:</span> <span class="string">Oculus AI Check</span><br>
+                    &nbsp;&nbsp;<span class="keyword">uses:</span> <span
+                        class="string">oculus-ai/recommendability-check@v1</span><br>
+                    &nbsp;&nbsp;<span class="keyword">with:</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">api_key:</span> <span class="string">${{
+                        secrets.OCULUS_API_KEY }}</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">url:</span> <span
+                        class="string">'https://yoursite.com'</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">platforms:</span> <span
+                        class="string">'chatgpt,claude,perplexity,gemini'</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="property">threshold:</span> <span class="number">50</span>
+                    <span class="comment"># Fail if score drops below 50</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+        <div class="stat fade-up">
+            <div class="stat-number">7</div>
+            <div class="stat-label">AI Platforms Monitored</div>
+        </div>
+        <div class="stat fade-up stagger-1">
+            <div class="stat-number">57+</div>
+            <div class="stat-label">API Endpoints</div>
+        </div>
+        <div class="stat fade-up stagger-2">
+            <div class="stat-number">95%</div>
+            <div class="stat-label">Confidence Intervals</div>
+        </div>
+        <div class="stat fade-up stagger-3">
+            <div class="stat-number">&lt;60s</div>
+            <div class="stat-label">Time to First Score</div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Platform</span>
+                <h2>Not a monitoring tool.<br>A <span class="gradient-text">recommendability engine</span>.</h2>
+                <p>Other tools show you where you're mentioned. Oculus shows you how to get recommended.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card fade-up">
+                    <div class="feature-icon" style="background: rgba(139,92,246,0.15);">🔬</div>
+                    <h3>Multi-Platform LLM Probes</h3>
+                    <p>Probe ChatGPT, Claude, Perplexity, Gemini, Copilot, Mistral & DeepSeek simultaneously. See
+                        exactly how each AI describes your brand.</p>
+                    <span class="feature-tag tag-api">API + CI/CD</span>
+                </div>
+                <div class="feature-card fade-up stagger-1">
+                    <div class="feature-icon" style="background: rgba(59,130,246,0.15);">🕸️</div>
+                    <h3>Entity Graph & PageRank</h3>
+                    <p>Build a knowledge graph of your brand's entity relationships. Measure centrality with PageRank —
+                        the same math that powers Google.</p>
+                    <span class="feature-tag tag-moat">Unique Moat</span>
+                </div>
+                <div class="feature-card fade-up stagger-2">
+                    <div class="feature-icon" style="background: rgba(6,182,212,0.15);">🎲</div>
+                    <h3>Monte Carlo Simulator</h3>
+                    <p>"If I do X, my score goes up Y% ± Z." Counterfactual simulations with confidence intervals.
+                        Predict before you invest.</p>
+                    <span class="feature-tag tag-moat">Unique Moat</span>
+                </div>
+                <div class="feature-card fade-up stagger-3">
+                    <div class="feature-icon" style="background: rgba(16,185,129,0.15);">📋</div>
+                    <h3>Actionable Playbooks</h3>
+                    <p>Get prioritized actions ranked by predicted uplift. Export to Trello, Jira, or your CI pipeline.
+                        Turn insights into tickets.</p>
+                    <span class="feature-tag tag-new">Automation</span>
+                </div>
+                <div class="feature-card fade-up stagger-4">
+                    <div class="feature-icon" style="background: rgba(245,158,11,0.15);">🧠</div>
+                    <h3>Customer-Trained RAG</h3>
+                    <p>Fine-tune models on your own data. The longer you use Oculus, the smarter it gets for your
+                        specific industry and brand.</p>
+                    <span class="feature-tag tag-moat">Lock-In Moat</span>
+                </div>
+                <div class="feature-card fade-up stagger-5">
+                    <div class="feature-icon" style="background: rgba(244,63,94,0.15);">⚡</div>
+                    <h3>CI/CD Integration</h3>
+                    <p>GitHub Action, Python SDK, REST API. Check AI visibility on every deploy. Fail builds when your
+                        score drops. Like Lighthouse, but for AI.</p>
+                    <span class="feature-tag tag-api">Developer-First</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section id="compare" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Compare</span>
+                <h2>Why Oculus wins</h2>
+                <p>We built what other tools can't. Here's the gap.</p>
+            </div>
+
+            <table class="comparison-table fade-up">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>MentionDesk</th>
+                        <th>Generic SEO</th>
+                        <th class="highlight-col">Oculus AI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI Mention Tracking</td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Entity Graph (PageRank)</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Predictive Simulations</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Confidence Intervals</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>CI/CD Integration</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Python SDK</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>REST API (57+ endpoints)</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check" style="color:var(--text-muted)">~</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Workflow Automation</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Customer-Trained Models</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td>Tamper-Proof Audit Log</td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td class="highlight-col"><span class="check">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SDK Preview -->
+    <section id="sdk">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Developer Experience</span>
+                <h2>One line. Full insight.</h2>
+                <p>pip install oculus-ai — then probe, score, simulate, export. Zero config.</p>
+            </div>
+
+            <div class="code-preview fade-up" style="max-width: 750px; margin: 0 auto;">
+                <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                    <span class="code-title">app.py — Python SDK</span>
+                </div>
+                <div class="code-body">
+                    <span class="keyword">from</span> oculus_sdk <span class="keyword">import</span>
+                    OculusClient<br><br>
+                    client = OculusClient(api_key=<span class="string">"ocu_live_..."</span>)<br><br>
+                    <span class="comment"># Probe 4 AI platforms in one call</span><br>
+                    result = client.<span class="function">probe</span>(<span
+                        class="string">"https://yoursite.com"</span>)<br>
+                    <span class="keyword">print</span>(f<span class="string">"Score: {result.score}/100"</span>) <span
+                        class="comment"># → 72.5</span><br>
+                    <span class="keyword">print</span>(f<span class="string">"Mentioned by: {result.mentioned_by}
+                        platforms"</span>)<br><br>
+                    <span class="comment"># What-if simulation</span><br>
+                    sim = client.<span class="function">simulate</span>(<br>
+                    &nbsp;&nbsp;url=<span class="string">"https://yoursite.com"</span>,<br>
+                    &nbsp;&nbsp;action=<span class="string">"Add FAQ schema markup"</span>,<br>
+                    )<br>
+                    <span class="keyword">print</span>(f<span class="string">"Uplift: +{sim.uplift_percent}%"</span>)
+                    <span class="comment"># → +18.3%</span><br>
+                    <span class="keyword">print</span>(f<span class="string">"95% CI: [{sim.confidence_lower},
+                        {sim.confidence_upper}]"</span>)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Pricing</span>
+                <h2>Pay for probes, not promises</h2>
+                <p>Usage-based. Start free. Scale as you grow.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="price-card fade-up">
+                    <div class="price-name">Free</div>
+                    <div class="price-amount"><span class="currency">$</span>0<span class="period">/mo</span></div>
+                    <div class="price-desc">For developers exploring AI visibility</div>
+                    <ul class="price-features">
+                        <li>1 domain</li>
+                        <li>10 probes / month</li>
+                        <li>2 AI platforms</li>
+                        <li>Basic score + actions</li>
+                        <li>GitHub Action</li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn-secondary" style="width:100%;justify-content:center;">Start
+                        Free</a>
+                </div>
+
+                <div class="price-card fade-up stagger-1 featured">
+                    <div class="price-name">Pro</div>
+                    <div class="price-amount"><span class="currency">$</span>99<span class="period">/mo</span></div>
+                    <div class="price-desc">For teams serious about AI visibility</div>
+                    <ul class="price-features">
+                        <li>3 domains</li>
+                        <li>100 probes / month</li>
+                        <li>All 7 AI platforms</li>
+                        <li>Entity graph analysis</li>
+                        <li>Simulator (Monte Carlo)</li>
+                        <li>CI/CD + Python SDK</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn-primary" style="width:100%;justify-content:center;">Join
+                        Waitlist</a>
+                </div>
+
+                <div class="price-card fade-up stagger-2">
+                    <div class="price-name">Scale</div>
+                    <div class="price-amount"><span class="currency">$</span>499<span class="period">/mo</span></div>
+                    <div class="price-desc">For companies at scale</div>
+                    <ul class="price-features">
+                        <li>Unlimited domains</li>
+                        <li>1,000 probes / month</li>
+                        <li>Custom RAG models</li>
+                        <li>Workflow automation</li>
+                        <li>Webhooks + connectors</li>
+                        <li>White-label reports</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <a href="#waitlist" class="btn btn-secondary" style="width:100%;justify-content:center;">Contact
+                        Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section" id="waitlist">
+        <div class="container">
+            <h2 class="fade-up">Ready to make AI<br><span class="gradient-text">recommend you?</span></h2>
+            <p class="fade-up stagger-1">Join the waitlist. Get early access. Be among the first to control your AI
+                visibility.</p>
+
+            <form class="waitlist-form fade-up stagger-2" id="waitlistForm2">
+                <input type="email" placeholder="your@email.com" id="emailInput2" required>
+                <button type="submit" class="btn btn-primary">Get Early Access</button>
+            </form>
+            <p class="waitlist-count fade-up stagger-2">
+                <strong>Free forever</strong> for the first 50 developers
+            </p>
+            <div class="waitlist-success" id="waitlistSuccess2">
+                🎉 You're in! Check your email for early access instructions.
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                &copy; 2026 Oculus AI. The Stripe of AI Visibility.
+                <br>
+                <a href="https://github.com/hizanamihizanagi-png/THRESHOLD_repo">GitHub</a> ·
+                <a href="#sdk">SDK</a> ·
+                <a href="#pricing">Pricing</a> ·
+                <a href="mailto:hello@oculus-ai.dev">Contact</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // ── Scroll animations ────────────────────────────────────
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ── Nav scroll effect ────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── Waitlist form ────────────────────────────────────────
+        function handleWaitlist(formId, successId, inputId) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById(inputId).value;
+                if (!email) return;
+
+                // Store locally (replace with your backend endpoint)
+                const waitlist = JSON.parse(localStorage.getItem('oculus_waitlist') || '[]');
+                if (!waitlist.includes(email)) {
+                    waitlist.push(email);
+                    localStorage.setItem('oculus_waitlist', JSON.stringify(waitlist));
+                }
+
+                // Show success
+                form.style.display = 'none';
+                document.getElementById(successId).style.display = 'block';
+
+                // Update count
+                const count = waitlist.length + 153;
+                document.querySelectorAll('#waitlistCount').forEach(el => el.textContent = count);
+
+                console.log(`✅ Waitlist signup: ${email}`);
+            });
+        }
+
+        handleWaitlist('waitlistForm', 'waitlistSuccess', 'emailInput');
+        handleWaitlist('waitlistForm2', 'waitlistSuccess2', 'emailInput2');
+
+        // ── Smooth anchor scrolling ──────────────────────────────
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
