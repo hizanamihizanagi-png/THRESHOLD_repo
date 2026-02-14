@@ -1,0 +1,63 @@
+name: 'Oculus AI Recommendability Check'
+description: 'Check your AI recommendability score in CI/CD. Fail builds when AI visibility drops. The Stripe of AI visibility.'
+author: 'Oculus AI'
+
+branding:
+  icon: 'eye'
+  color: 'purple'
+
+inputs:
+  api_key:
+    description: 'Your Oculus AI API key'
+    required: true
+  url:
+    description: 'The URL to probe for AI recommendability'
+    required: true
+  prompts:
+    description: 'Comma-separated prompts to test (e.g., "best CRM for startups,top project management tools")'
+    required: false
+    default: ''
+  platforms:
+    description: 'AI platforms to probe (comma-separated: chatgpt,claude,perplexity,gemini,copilot,mistral,deepseek)'
+    required: false
+    default: 'chatgpt,claude,perplexity,gemini'
+  threshold:
+    description: 'Minimum recommendability score (0-100). Build fails if score drops below this.'
+    required: false
+    default: '0'
+  fail_on_drop:
+    description: 'Fail build if score dropped by more than this percentage from previous run'
+    required: false
+    default: '0'
+  compare_competitors:
+    description: 'Comma-separated competitor URLs to benchmark against'
+    required: false
+    default: ''
+  output_format:
+    description: 'Output format: summary, json, or markdown'
+    required: false
+    default: 'summary'
+
+outputs:
+  score:
+    description: 'Composite recommendability score (0-100)'
+  previous_score:
+    description: 'Previous score from last run (if available)'
+  score_delta:
+    description: 'Change from previous score'
+  mention_count:
+    description: 'Number of AI platforms that mentioned the brand'
+  total_platforms:
+    description: 'Total platforms probed'
+  entity_centrality:
+    description: 'Entity graph centrality score (0-100)'
+  top_actions:
+    description: 'JSON array of top 3 recommended actions'
+  report_url:
+    description: 'URL to full report on Oculus dashboard'
+  status:
+    description: 'pass or fail'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
